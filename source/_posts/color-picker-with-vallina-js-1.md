@@ -4,7 +4,7 @@ date: 2017-08-03 21:33:41
 tags: [JavaScript, Color-picker]
 ---
 使用Chrome DevTools做开发的同学应该都知道，Chrome开发工具中的取色板简直是网页设计时神一般的存在，不仅可以实时预览页面样式，配合插件还可以直接保存到本地，可谓debug一把手。今天就来试试用原生JS还原一个取色板吧！DevTools取色板预览：
-
+<!-- more -->
 <img src="http://ot8662avo.bkt.clouddn.com/17-7-27/16835144.jpg" alt="preview" style="display: block; margin: 0 auto;">
 
 图中不仅包含了取色、调节色相、调节透明度、颜色预览等基本功能外，还可以使用三种方式：`HEX`, `RGBA`, `HSLA`输出颜色代码。此外，取色板还包括了一个屏幕取色器（JS无法实现），以及一个下方的自定义色板的功能（暂未实现）。本文将会实现的效果如图：

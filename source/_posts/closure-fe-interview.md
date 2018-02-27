@@ -4,7 +4,7 @@ date: 2017-05-26 16:21:03
 tags: [JavaScript, 面试]
 ---
 此题对`Hoisting`、`this`、`prototype`等基本概念均有涉及，需要冷静分析，逐步推导，不然极易出错：
-
+<!-- more -->
 ```javascript
 function Foo() {
 	getName = function() { alert(1); }

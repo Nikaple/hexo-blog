@@ -6,7 +6,7 @@ tags: [Linux, Vagrant, VirtualBox]
 ###  搭建虚拟机环境
 
 下载并安装[VirtualBox](https://www.virtualbox.org/)与[Vagrant](https://www.vagrantup.com/)，记住Vagrant要在VirtualBox安装好之后再安装，因为Vagrant依赖于VirtualBox。接着选择所需系统，在[Udacity](https://www.udacity.com/)的教程中，我们选用`ubuntu-trusty-64`，使用Vagrant安装虚拟机需要一个名为`Vagrantfile`的文件（ruby语言）。Udacity官方所给的Vagrantfile如下：
-
+<!-- more -->
 ``` ruby
     # -*- mode: ruby -*-
 	# vi: set ft=ruby :

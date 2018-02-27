@@ -8,7 +8,7 @@ tags: [CSS, Youtube, Animation]
 <img src="http://ot8662avo.bkt.clouddn.com/17-7-26/89316020.jpg" alt="preview" style="display: block; margin: 0 auto;">
 
 等等，暂停按钮可以用`border-left`与`border-right`实现，播放的[三角形](https://css-tricks.com/examples/ShapesOfCSS/)也可以用边框实现，这岂不是骗小孩子的把戏？于是乎没几分钟，我们就可以写出这么一个实现：
-
+<!-- more -->
 <iframe width="100%" height="300" src="//jsfiddle.net/Nikaple/3585q1dd/3/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 可是致命的缺陷是，由于暂停按钮中间缝隙的关系，我们必须对`width`元素进行动画处理，这直接导致`border-width`的动画无法按照我们设想的方式工作。于是乎，换个方向考虑，只能使用伪元素或者再添加一个`div`元素将两个边框分别实现了。

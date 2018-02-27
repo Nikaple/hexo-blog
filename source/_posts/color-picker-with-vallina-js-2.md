@@ -10,7 +10,7 @@ tags: [JavaScript, Color-picker]
 <iframe width="100%" height="400" src="//jsfiddle.net/Nikaple/zhh8qv7x/8/embedded/html,css,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 终于到`JavaScript`出场的时候了！首先观察一下我们的组件，滑块的交互方式其实可以看为仅在`x`轴方向上运动的色盘交互方式。于是我们首先建立一个可拖动对象的类`DragContext`：
-
+<!-- more -->
 ```javascript
 class DragContext {
   constructor({
