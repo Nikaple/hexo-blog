@@ -1,7 +1,7 @@
 ---
 title: Linux下的用户管理 —— 查看、添加用户
 date: 2017-04-02 20:01:03
-tags: [Linux, User Management]
+tags: [Linux]
 ---
 finger是Linux系统中用于查看用户信息的程序。使用`apt-get`来安装：
 
