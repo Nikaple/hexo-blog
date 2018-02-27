@@ -120,7 +120,7 @@ const data = [
 
 
 
-这道题还算比较简单，在这里定义了一个 FormRenderer 类，里面主要定义了 `renderTh`, `renderTd` 与 `renderAll` 三个方法，分别用于渲染表头，表身以及整个表格。实现如下：
+这道题还算比较简单，在这里定义了一个 FormRenderer 类，里面主要定义了 `renderTableHead`, `renderTd` 与 `renderAll` 三个方法，分别用于渲染表头，表身以及整个表格。ableBody现如下：
 
 ```javascript
 class FormRenderer {
@@ -137,33 +137,22 @@ class FormRenderer {
     this.renderAll();
   }
 
-  renderTh() {
+  renderTableHead() {
     const $container = document.createElement('tr');
     this.head.forEach(head => {
-      // 这里可以封装为一个方法，appendElement(father, type, text)
-      // 后面 renderTd 也会用到，只不过当时没时间重构了
-      // 则这里的代码可以换成 appendElement($container, 'th', head.text);
-      const $th = document.createElement('th');
-      const $text = document.createTextNode(head.text);
-      $th.appendChild($text);
-      $container.appendChild($th);
+      this.renderTableCell($container, 'th', head.text);
     });
     return $container;
   }
 
-  renderTd() {
+  renderTableBody() {
     const $body = [];
     this.data.forEach(data => {
       const $container = document.createElement('tr');
       this.headKey.forEach(key => {
         for (const prop in data) {
           if (prop === key) {
-            // 使用上面封装的函数，这4行可以换成
-            // appendElement($container, 'td', data[prop])
-            const $td = document.createElement('td');
-            const $text = document.createTextNode(data[prop]);
-            $td.appendChild($text);
-            $container.appendChild($td);
+            this.renderTableCell($container, 'th', data[prop])
             $body.push($container);
             break;
           }
@@ -173,10 +162,17 @@ class FormRenderer {
     return $body;
   }
 
+  renderTableCell(container, type, data) {
+    const $td = document.createElement(type);
+    const $text = document.createTextNode(data);
+    $td.appendChild($text);
+    container.appendChild($td);
+  }
+
   renderAll() {
     const $container = document.createDocumentFragment();
-    const $head = this.renderTh();
-    const $body = this.renderTd();
+    const $head = this.renderTableHead();
+    const $body = this.renderTableBody();
     $container.appendChild($head);
     $body.forEach($row => {
       $container.appendChild($row);
