@@ -3,14 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "hexo clean && hexo g && node build/inline-css.js && hexo s -s",
-    "deploy": "hexo clean && hexo g && node build/inline-css.js && hexo d"
+    "start": "hexo clean && hexo g && hexo s",
+    "deploy": "hexo clean && hexo g && hexo d"
   },
   "hexo": {
     "version": "3.5.0"
   },
   "dependencies": {
     "fs-extra": "^5.0.0",
+    "glob": "^7.1.2",
     "hexo": "^3.2.0",
     "hexo-deployer-git": "^0.3.1",
     "hexo-generator-archive": "^0.1.4",

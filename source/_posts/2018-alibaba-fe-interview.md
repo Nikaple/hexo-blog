@@ -121,7 +121,7 @@ const data = [
 
 
 
-这道题还算比较简单，在这里定义了一个 FormRenderer 类，里面主要定义了 `renderTableHead`, `renderTd` 与 `renderAll` 三个方法，分别用于渲染表头，表身以及整个表格。ableBody现如下：
+这道题还算比较简单，在这里定义了一个 FormRenderer 类，里面主要定义了 `renderTableHead`, `renderTableBody` , `renderTableCell` 与 `renderAll` 四个方法，分别用于渲染表头，表身，单元格以及整个表格。ableBody现如下：
 
 ```javascript
 class FormRenderer {
