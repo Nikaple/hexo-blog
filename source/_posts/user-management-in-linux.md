@@ -1,7 +1,7 @@
 ---
 title: Linux下的用户管理 —— 查看、添加用户
 date: 2017-04-02 20:01:03
-tags: [Linux]
+tags: [后端, Linux]
 ---
 最近刚开始跟着`Udacity`学习`Linux`系统的基本操作方法。
 首先我们需要安装`finger`, `Linux`系统中一个用于查看用户信息的程序。使用`apt-get`来安装：

@@ -1,7 +1,7 @@
 ---
 title: 原生JS实现一个Chrome DevTools取色板（上）
 date: 2017-08-03 21:33:41
-tags: [JavaScript, Color-picker]
+tags: [前端, JavaScript, Color-picker]
 ---
 使用Chrome DevTools做开发的同学应该都知道，Chrome开发工具中的取色板简直是网页设计时神一般的存在，不仅可以实时预览页面样式，配合插件还可以直接保存到本地，可谓debug一把手。今天就来试试用原生JS还原一个取色板吧！DevTools取色板预览：
 <!-- more -->

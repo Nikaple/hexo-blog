@@ -1,7 +1,7 @@
 ---
 title: 纯CSS实现Youtube视频播放按钮动画
 date: 2017-06-18 19:28:02
-tags: [CSS, Youtube, Animation]
+tags: [前端, CSS, Youtube, Animation]
 ---
 前两天在 Youtube 上看视频时，无意间发现视频播放器的播放暂停切换按钮动画十分流畅，于是就想试着用 CSS 仿制一下，先上效果图：
 

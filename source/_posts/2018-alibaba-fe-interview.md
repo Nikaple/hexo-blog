@@ -1,7 +1,7 @@
 ---
 title: 2018阿里前端面试题两道
 date: 2017-08-23 12:08:07
-tags: [JavaScript, 面试]
+tags: [面试, JavaScript]
 ---
 今年秋招阿里前端的笔试大题部分总得来说不难，大题也只有两道，只不过时间会有点紧。
 #### 第一题 - 当 json 中有环时，JSON.stringify(json) 会报错。写一个函数判断 obj 是否有环。

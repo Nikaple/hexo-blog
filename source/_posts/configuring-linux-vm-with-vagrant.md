@@ -1,7 +1,7 @@
 ---
 title: Linux环境搭建 —— Vagrant与VirtualBox的配置
 date: 2017-04-02 21:03:15
-tags: [Linux, Vagrant, VirtualBox]
+tags: [后端, Linux, Vagrant, VirtualBox]
 ---
 ###  搭建虚拟机环境
 

@@ -1,7 +1,7 @@
 ---
 title: 原生JS实现一个Chrome DevTools取色板（下）
 date: 2017-08-07 20:24:17
-tags: [JavaScript, Color-picker]
+tags: [前端, JavaScript, Color-picker]
 ---
 ### 拖拽功能
 
