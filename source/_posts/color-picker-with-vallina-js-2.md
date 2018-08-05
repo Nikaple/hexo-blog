@@ -1,6 +1,6 @@
 ---
 title: 原生JS实现一个Chrome DevTools取色板（下）
-date: 2017-08-07 20:24:17
+date: 2017-10-07 20:24:17
 tags: [前端, JavaScript, Color-picker]
 ---
 ### 拖拽功能
@@ -14,13 +14,13 @@ tags: [前端, JavaScript, Color-picker]
 ```javascript
 class DragContext {
   constructor({
-    \$context, // 可以拖动的范围，即色盘以及滑块槽
-    \$dragger, // 可拖动对象，色盘游标以及滑块
+    $context, // 可以拖动的范围，即色盘以及滑块槽
+    $dragger, // 可拖动对象，色盘游标以及滑块
     name, // 用来区分两个滑块
     direction // 用来区分仅x轴还是x,y轴均可拖动
   }) {
-   	this.\$context = \$context;
-    this.\$dragger = \$dragger;
+   	this.$context = $context;
+    this.$dragger = $dragger;
     this.name = name;
     this.direction = direction;
   }
@@ -32,7 +32,7 @@ class DragContext {
 - 单击父元素，子元素可以瞬间移动到单击的位置；
 - 单击子元素，可以拖动子元素。
 
-很自然地，我们需要为父元素添加`mousedown`, `mousemove`, `mouseup`三个事件。在这里由于我们想当用户鼠标在区域外时，只要不松开左键还能继续拖动滑块，便可以将`mousemove`, `mouseup`这两个事件绑定在全局的`document`对象上。当按下鼠标时，将内部变量`_isDragging`设置为`true`；松开鼠标时，设置为`false`。这样便可通过`_isDragging`来确定元素是否被拖动。当对象正在被拖动时，则执行`_setStyles`函数为`\$dragger`与`\$context`设置样式。（`utils.addHandler(context, event, handler)`为`target`添加回调函数`handler`的`event`事件，关于`utils`对象，可看本文附录）。
+很自然地，我们需要为父元素添加`mousedown`, `mousemove`, `mouseup`三个事件。在这里由于我们想当用户鼠标在区域外时，只要不松开左键还能继续拖动滑块，便可以将`mousemove`, `mouseup`这两个事件绑定在全局的`document`对象上。当按下鼠标时，将内部变量`_isDragging`设置为`true`；松开鼠标时，设置为`false`。这样便可通过`_isDragging`来确定元素是否被拖动。当对象正在被拖动时，则执行`_setStyles`函数为`$dragger`与`$context`设置样式。（`utils.addHandler(context, event, handler)`为`target`添加回调函数`handler`的`event`事件，关于`utils`对象，可看本文附录）。
 
 ```javascript
 class DragContext {
@@ -50,7 +50,7 @@ class DragContext {
     return this.name;
   }
   _addMousedown() {
-    utils.addHandler(this.\$context, 'mousedown', (e) => {
+    utils.addHandler(this.$context, 'mousedown', (e) => {
       // 初始化样式
       this._setStyles(e);
       this._isDragging = true;
@@ -94,20 +94,20 @@ class DragContext {
     ...;
     this._x = initX || 0;
     this._y = initY || 0;
-    this._rect = this.\$context.getBoundingClientRect();
+    this._rect = this.$context.getBoundingClientRect();
   }
   _setDraggerStyles(e) {
     this._x = utils.clamp(e.clientX - this._rect.left, 0, this._rect.width);
     this._y = utils.clamp(e.clientY - this._rect.top, 0, this._rect.height);
     switch (this.direction) {
       case 'horizontal':
-        this.\$dragger.style.transform = `translate(\${this._x}px, 0)`;
+        this.$dragger.style.transform = `translate(${this._x}px, 0)`;
         break;
       case 'vertical':
-        this.\$dragger.style.transform = `translate(0, \${this._y}px)`;
+        this.$dragger.style.transform = `translate(0, ${this._y}px)`;
         break;
       case 'both':
-        this.\$dragger.style.transform = `translate(\${this._x}px, \${this._y}px)`;
+        this.$dragger.style.transform = `translate(${this._x}px, ${this._y}px)`;
     }
   }
 }
@@ -116,26 +116,26 @@ class DragContext {
 至此我们可以对目前的组件进行简单的测试了，直接上代码（`jsFiddle`自动在`domready`时加载，不用自己套壳了）：
 
 ```javascript
-const \$palletes = Array.prototype.slice.call(document.querySelectorAll('.palette'));
-const \$sliders = Array.prototype.slice.call(document.querySelectorAll('.slider'));
-const \$picker = document.querySelector('.color-picker');
-const \$indicator = document.querySelector('.color-indicator');
-const contexts = \$palletes.map((\$context) => {
-    const name = \$context.getAttribute('name');
-    const \$dragger = \$sliders.filter(element => element.getAttribute('name') === name)[0];
+const $palletes = Array.prototype.slice.call(document.querySelectorAll('.palette'));
+const $sliders = Array.prototype.slice.call(document.querySelectorAll('.slider'));
+const $picker = document.querySelector('.color-picker');
+const $indicator = document.querySelector('.color-indicator');
+const contexts = $palletes.map(($context) => {
+    const name = $context.getAttribute('name');
+    const $dragger = $sliders.filter(element => element.getAttribute('name') === name)[0];
     return new DragContext({
-      \$context,
-      \$dragger,
+      $context,
+      $dragger,
       name,
       direction: 'horizontal',
       initX: 120
     });
   });
 
-const name = \$picker.getAttribute('name');
+const name = $picker.getAttribute('name');
 const context = new DragContext({
-  \$context: \$picker,
-  \$dragger: \$indicator,
+  $context: $picker,
+  $dragger: $indicator,
   name,
   direction: 'both'
 });
@@ -221,16 +221,16 @@ StyleRenderer.getInstance(doms, dragContexts);
 
 function kickPicker() {
   // 获取色盘有关节点并缓存
-  const \$picker = document.querySelector('.color-picker');
-  const \$indicator = document.querySelector('.color-indicator');
-  doms.\$picker = \$picker;
-  doms.\$indicator = \$indicator;
+  const $picker = document.querySelector('.color-picker');
+  const $indicator = document.querySelector('.color-indicator');
+  doms.$picker = $picker;
+  doms.$indicator = $indicator;
 
   // 获取色盘有关对象并缓存
-  const name = \$picker.getAttribute('name');
+  const name = $picker.getAttribute('name');
   const context = new DragContext({
-    \$context: \$picker,
-    \$dragger: \$indicator,
+    $context: $picker,
+    $dragger: $indicator,
     name,
     direction: 'both'
   });
@@ -239,18 +239,18 @@ function kickPicker() {
 
 function kickSliders() {
   // 获取滑轮有关节点并缓存
-  const \$palletes = Array.prototype.slice.call(document.querySelectorAll('.palette'));
-  const \$sliders = Array.prototype.slice.call(document.querySelectorAll('.slider'));
-  doms.\$palletes = \$palletes;
-  doms.\$sliders = \$sliders;
+  const $palletes = Array.prototype.slice.call(document.querySelectorAll('.palette'));
+  const $sliders = Array.prototype.slice.call(document.querySelectorAll('.slider'));
+  doms.$palletes = $palletes;
+  doms.$sliders = $sliders;
 
   // 获取滑轮有关对象并缓存
-  const contexts = \$palletes.map((\$context) => {
-    const name = \$context.getAttribute('name');
-    const \$dragger = \$sliders.filter(element => element.getAttribute('name') === name)[0];
+  const contexts = $palletes.map(($context) => {
+    const name = $context.getAttribute('name');
+    const $dragger = $sliders.filter(element => element.getAttribute('name') === name)[0];
     return new DragContext({
-      \$context,
-      \$dragger,
+      $context,
+      $dragger,
       name,
       direction: 'horizontal',
       initX: 120
@@ -283,9 +283,9 @@ class StyleRenderer {
     this.rgb = utils.color.hsl2rgb(this.hsl.h, this.hsl.s, this.hsl.l);
     this.hex = utils.color.rgb2hex(this.rgb.r, this.rgb.g, this.rgb.b);
     // 当hex值可以简化时，将#66ccff简化为#6cf
-    const simplifyHex = /^#(?:([\\da-f])\1){3}\$/.exec(this.hex);
+    const simplifyHex = /^#(?:([da-f])1){3}$/.exec(this.hex);
     if (simplifyHex !== null) {
-      this.hex = `#\${this.hex[1]}\${this.hex[3]}\${this.hex[5]}`;
+      this.hex = `#${this.hex[1]}${this.hex[3]}${this.hex[5]}`;
     }
     this.setStyles();
   }
@@ -300,27 +300,27 @@ class StyleRenderer {
   setStyles() {
     // set context styles
     const round = Math.round;
-    const rgbValues = `\${round(this.rgb.r * 255)}, \${round(this.rgb.g * 255)}, \${round(this.rgb.b * 255)}`;
+    const rgbValues = `${round(this.rgb.r * 255)}, ${round(this.rgb.g * 255)}, ${round(this.rgb.b * 255)}`;
     const alphaValue = utils.trimZero(this.alpha.toFixed(2));
-    const hslaColor = `hsla(\${round(this.hsl.h % 360)}, \${round(this.hsl.s * 100)}%, \${round(this.hsl.l * 100)}%, \${alphaValue})`;
-    const rgbColor = `rgb(\${rgbValues})`;
-    const rgbaColor = `rgba(\${rgbValues}, \${alphaValue})`
+    const hslaColor = `hsla(${round(this.hsl.h % 360)}, ${round(this.hsl.s * 100)}%, ${round(this.hsl.l * 100)}%, ${alphaValue})`;
+    const rgbColor = `rgb(${rgbValues})`;
+    const rgbaColor = `rgba(${rgbValues}, ${alphaValue})`
     // 如果用图片或者再加一个div来代替棋盘背景的话，这里的代码会好很多
     this.doms.preview.style.background =
-      `linear-gradient(\${hslaColor}, \${hslaColor}) 0 0 / cover,
+      `linear-gradient(${hslaColor}, ${hslaColor}) 0 0 / cover,
       linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px,
       linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`;
-    this.doms.\$palletes
+    this.doms.$palletes
       .filter(element => element.getAttribute('name') === 'alpha')[0]
       .style.background =
-        `linear-gradient(to right, rgba(0,0,0,0), \${rgbColor}) 0 0 / cover,
+        `linear-gradient(to right, rgba(0,0,0,0), ${rgbColor}) 0 0 / cover,
         linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 0 0 / 12px 12px,
         linear-gradient(45deg, rgba(0,0,0,0.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,0.25) 0) 6px 6px / 12px 12px`;
-    this.doms.\$picker.style.backgroundColor = `hsl(\${this.hue}, 100%, 50%)`;
+    this.doms.$picker.style.backgroundColor = `hsl(${this.hue}, 100%, 50%)`;
 
     // results
     this.doms.result.hex.innerHTML = this.hex;
-    this.doms.result.rgb.innerHTML = `rgba(\${round(this.rgb.r * 255)}, \${round(this.rgb.g * 255)}, \${round(this.rgb.b * 255)}, \${utils.trimZero(this.alpha.toFixed(2))})`;
+    this.doms.result.rgb.innerHTML = `rgba(${round(this.rgb.r * 255)}, ${round(this.rgb.g * 255)}, ${round(this.rgb.b * 255)}, ${utils.trimZero(this.alpha.toFixed(2))})`;
     this.doms.result.hsl.innerHTML = hslaColor;
   }
 }
@@ -346,18 +346,18 @@ const doms = {};
 const dragContexts = [];
 kickTarget();
 function kickTarget() {
-  const \$target = document.querySelector('.target');
-  doms.\$target = \$target;
-  const \$colorPickerComponent = document.querySelector('.wrapper');
-  utils.addHandler(\$target, 'click', (e) => {
-    \$colorPickerComponent.classList.toggle('active');
+  const $target = document.querySelector('.target');
+  doms.$target = $target;
+  const $colorPickerComponent = document.querySelector('.wrapper');
+  utils.addHandler($target, 'click', (e) => {
+    $colorPickerComponent.classList.toggle('active');
   });
   // 在第一次点开取色板时再初始化
-  utils.addHandler(\$colorPickerComponent, 'transitionend', function handler(){
+  utils.addHandler($colorPickerComponent, 'transitionend', function handler(){
     kickPicker();
     kickSliders();
     StyleRenderer.getInstance(doms, dragContexts);
-    utils.removeHandler(\$colorPickerComponent, 'transitionend', handler);
+    utils.removeHandler($colorPickerComponent, 'transitionend', handler);
   });
 }
 function kickPicker() {
@@ -453,7 +453,7 @@ const utils = {
   },
   // 数字末尾除0
   trimZero(str) {
-    return str.replace(/\.?0*\$/, '');
+    return str.replace(/.?0*$/, '');
   },
   color: {
     // https://gist.github.com/NV/522734
